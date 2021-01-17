@@ -1,6 +1,12 @@
-var currentTime = moment();
+var curentTime = moment();
 var tasks = {};
 let times = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM']
+
+$(document).ready(function() {
+
+    $("#currentDay").text( moment().format('ddd MMM Do, YYYY') );
+
+});
 
 $(".task").on("click", function () {
     var text = $(this).text().trim();
@@ -26,7 +32,7 @@ $(".task").on("blur", "textarea", function () {
     localStorage.setItem("tasks", JSON.stringify(tasks))
 });
 
-$("saveBtn").on("click", function () {
+$("saveBtn").on("click", "btn", function () {
     localStorage.setItem("tasks", JSON.stringify(tasks))
 })
 
@@ -40,12 +46,12 @@ var styleTask = function (taskEl) {
 
     //apply new class if task is near/over due date
     if (moment().isAfter(currentTime)) {
-        $(taskEl).addClass("bg-success");
+        $(taskEl).addClass("future");
     }
     if (moment().isBefore(currentTime)) {
-        $(taskEl).addClass("bg-secondary");
+        $(taskEl).addClass("past");
     }
     if (moment() === currentTime) {
-        $(taskEl).addClass("bg-danger");
+        $(taskEl).addClass("present");
     }
 };
