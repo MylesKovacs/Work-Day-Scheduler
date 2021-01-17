@@ -1,6 +1,6 @@
-var curentTime = moment();
+var currentTime = moment();
 var tasks = {};
-let times = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM']
+let rowEl = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM']
 
 $(document).ready(function () {
 
@@ -43,20 +43,20 @@ var loadTasks = function () {
     tasks = JSON.parse(localStorage.getItem("task"));
 }
 
-var styleRows = function (taskEl) {
+var styleRows = function (rowEl) {
     //get date from task element
-    var timeSlot = $(timesEl).find("time-block").text().trim();
+    var timeSlot = $(rowEl).find("time-block").text().trim();
 
     //apply new class if slot is near/over due date
     if (moment(timeSlot).isAfter(currentTime)) {
-        $(taskEl).addClass("future");
+        $(rowEl).addClass("future");
     }
     if (moment(timeSlot).isBefore(currentTime)) {
-        $(taskEl).addClass("past");
+        $(rowEl).addClass("past");
     }
-    if (moment(timeSlot) === currentTime) {
-        $(taskEl).addClass("present");
-    }
+    
+    // moment(timeSlot).addClass("present");
 };
 
 loadTasks();
+styleRows();
