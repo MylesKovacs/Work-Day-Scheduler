@@ -17,7 +17,7 @@ $(".task").on("click", function () {
     textInput.trigger("focus");
 });
 
-$(".task").on("blur", "textarea", function () {
+$(".task").change(function () {
     //get the textarea's current value/text
     var text = $(this)
         .val()
@@ -29,7 +29,7 @@ $(".task").on("blur", "textarea", function () {
 
     //replace textarea with p element
     $(this).replaceWith(taskP);
-    saveTasks();
+    
 });
 var saveTasks = function () {
     localStorage.setItem("task", JSON.stringify(tasks))
@@ -55,7 +55,7 @@ var styleRows = function (rowEl) {
         $(rowEl).addClass("past");
     }
     
-    // moment(timeSlot).addClass("present");
+    // +moment(timeSlot).addClass("present");
 };
 
 loadTasks();
